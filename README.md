@@ -137,9 +137,9 @@ Given the corpus is one artifact per phenomenon, exact-formula claims are mostly
 
 I checked several files in case they were hiding something, just for good measure, but found nothing myself:
 
--background_cave_02.png
--the "eye" files in data\biome_impl\caves\*.png
--noise_triangular.png and perlin in the shaders folder
+- background_cave_02.png
+- the "eye" files in data\biome_impl\caves\*.png
+- noise_triangular.png and perlin in the shaders folder
 
 The eyes do have peculiar properties, pixelwise. Not fully explored.
 
