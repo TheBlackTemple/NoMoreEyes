@@ -38,22 +38,29 @@ It is composed of a central symbol, a text ring, 3 rings of what can be seen as 
 4. `000000000000000000000000`, 24 chars.
 5. `m[gap]kmgickmgickmgickmgickmgickmgick` — 32 uniform content characters plus one physically real, oversized terminator feature (~1.6× an ordinary symbol). **What the gap signifies beyond its own existence and size is unknown.**
 
+**Letter properties of MAGICK, directly observed**: M is the 13th letter of the alphabet. MAGICK contains 4 consonants (M, G, C, K) and 2 vowels (A, I).
+
+**Length matches across rings**, not yet explained beyond physical layout: ring 1 and ring 4 are both 24 characters; ring 3 (20 characters) equals MGICK × 4; ring 2 (17) and the heart ring (18) are a single count apart.
+
 
 ### HEART RING (heart_effect.png)
 
-A simpler yet similar ring, with a circle divided by a cross, generating four quadrants. Around it, a ring of symbols of the same kind as the ring. Starting to read from 3 o clock, reads MCKMGICKMGICKMGICK.
+A simpler yet similar ring, with a circle divided by a cross, generating four quadrants. Around it, a ring of symbols of the same kind as the ring. Starting to read from 3 o clock, reads MCKMGICKMGICKMGICK, 18 characters.
 
+### MANA RING (mana.png)
+
+A simple ring with the same symbol that sea_of_oil.png and magic_effect_1.png have at the center. It has a pattern of 011111011111011111011111 ring around it, 24 characters, with the zeros aligned on the cardinals. No text on any of these, so they have not been integrated into the analysis just yet to avoid overfitting.
 
 ### VICTORY ROOM (boss_victoryroom_visual.png)
 
 This is a partial render of the victory room of the game. It holds the "basic win" of the game, among other symbols. It has two, large, detailed hands which are not perfect mirrors of each other. The room itself is also not perfectly mirrored. At the bottom, we see the altar. 
 
 The altar is composed of 4 segments, forming a stack with steps. From the bottom up:
-- The lower, widest base stone. Seems to have multiple staircases and markings
-- The second, similar to the first, containing steps and markings
-- The third seems like a ring of multiple uneven circles. There are 32 marks that seem to taper towards the ends. Half are leaning to the left, half lean to the right. 
-- The fourth has a smaller staircase, inscribed with the 18[ɰ]81 in the center of it. 
-- A fifth element can be considered. The player is meant to stand right on top of the altar, and sacrifice themselves to finish the game.
+-The lower, widest base stone. Seems to have multiple staircases and markings
+-The second, similar to the first, containing steps and markings
+-The third seems like a ring of multiple uneven circles. There are 32 marks that seem to taper towards the ends. Half are leaning to the left, half lean to the right. 
+-The fourth has a smaller staircase, inscribed with the 18[ɰ]81 in the center of it. 
+-A fifth element can be considered. The player is meant to stand right on top of the altar, and sacrifice themselves to finish the game.
 
 ## ANALYSIS
 
@@ -78,7 +85,7 @@ Theban is a very well known trick for witches and wiccas to "cipher" their writi
 
 The green layer that defines the render of the magick circle may also hide something. It follows a perfect render instruction, yet the fact the image is not perfectly centered or mirrored may be a hint. It is a 340x344 image, where the smaller version is a square. The green layer follows G = clamp(v + (v >> 4), 0, 255), v = floor(dist) - 1.
 
-My running theory is **that this is a transcript chart**. It has an input (either the central symbol or the MAGICK keyword), and the output (the mgick ring 5). The rings can then be considered instruction sets for how to perform the MAGICK -> mgick transformation. I include the heart ring as a secondary, reinforcing hint of its properties. It goes from MAGICK/MGICK to MCK. This can be either two different instances, or a transform that is layered as MAGICK -> mgick -> mck. There is a recurring topic of irregular, staggered treatment across the whole puzzle.
+My running theory is **that this is a transcript chart**. It has an input (either the central symbol or the MAGICK keyword), and the output (the mgick ring 5). The rings can then be considered instruction sets for how to perform the MAGICK -> mgick transformation. I include the heart ring as a secondary, reinforcing hint of its properties. It goes from MAGICK/MGICK to MCK. This can be either two different instances, or a transform that is layered as MAGICK -> mgick -> mck, and for the drop rule specifically, these two readings turn out to be mathematically identical: the same letters survive either way, confirmed by staging the drop through every intermediate length. So this particular either/or dissolves rather than resolves. There is a recurring topic of irregular, staggered treatment across the whole puzzle.
 
 
 ### MATHEMATICAL MODELS
@@ -111,9 +118,26 @@ Given the corpus is one artifact per phenomenon, exact-formula claims are mostly
 
 - Ring 2's content-digit count (13) partitions into 4 near-equal groups, `{3,3,3,4}` — this multiset-level claim needs no rule beyond "distribute evenly," and matches the physically counted ring. Which slot gets the 4 is a separate, unresolved question.
 
+- Ring 2's two generating numbers now have a source, not just a value. `bucket_assign(13,4)` isn't two arbitrary constants: 13 is M's position in the alphabet, and 4 is MAGICK's consonant count. If that holds, the ring's quartering isn't a layout choice imposed from outside — it's downstream of the word itself. This is the first time either of ring 2's parameters has had a derivation rather than being accepted as a given constant.
+
+- All four cardinals of ring 1 read M, not just the 3 o'clock anchor — forced by MAGICK×4's own construction, but consistent with M functioning as an instance-independent constant across the whole piece, the same role the header pair plays in the messages above.
+
+- Center glyph is already described as "3+1", which is exactly ring 2's own common quadrant unit (the zero-separator plus three ones, itself three regulars and one irregular). Read plainly, the center glyph isn't a separate operator symbol sitting apart from the ring's content; it's that same repeated unit shown once, compactly, at the center.
+
+- Ring 2 and the heart ring appear to share one generative template: a common unit repeated three times, plus one resized version of that same unit placed first, right after the anchor (ring 2: three `0111`s + one `01111`; heart ring: three MGICKs + one MCK). An observation, not a confirmed mechanism — I don't have an independent reason to expect this beyond both examples fitting it.
+
+- Ring 2's odd arc landing first is mathematically forced: `bucket_assign`'s floor division front-loads the overflow into the earliest bucket whenever the split isn't even. The heart ring's matching order isn't forced the same way — nothing about its own compression requires MCK to come first. That it does anyway might be a deliberate echo of ring 2's structure. Still thin, worth a note rather than a claim.
+
+- The fixed `231, 010` pair isn't just a reading-order anchor. Read numerically: digit-sum(231) = 2+3+1 = 6, which is also the product of those same digits (2×3×1 = 6) — two independent operations landing on the same number, MAGICK's length. Base-5(010) = 5, MGICK's length. The other two obvious readings (base-5(231) = 66, digit-sum(010) = 1) don't match anything else in the corpus, so this isn't every number turning into a hit — just these two, each through one natural operation. If it holds, the header is carrying the same two word-lengths the ring itself is built from, via the simplest arithmetic available, and it stops being fixed at exactly the point the message tree starts branching. Funny property.
+
+
 - FIT's floor division is arithmetically forced: every non-floor rounding method against the 83-symbol alphabet target produces an invalid remainder.
 
 - FIT structurally excludes progressive drift by construction — no stage feeds its own prior output back in.
+
+- RESAMPLE's word-compression rule (`cascade_drop`) has a much simpler closed form than its iterative description suggests. Tested against 91 (n,m) pairs, it's exactly equivalent to a static rule: keep the first character and the tail, remove a contiguous run from the middle. "Recompute the index after every deletion" doesn't add anything over that. It also nests perfectly — compressing in stages (6→5→3) gives the identical result to compressing directly (6→3), confirmed on 8 arbitrary words with zero mismatches. That settles the two-instances-vs-layered question above for the drop operation specifically: they're the same claim, not two competing ones.
+
+- Of MAGICK's two compression examples, only MAGICK→MCK is actually discriminating. MAGICK→MGICK is forced trivially: with six distinct letters, there's only one letter that *can* be dropped to produce MGICK, regardless of which rule generates it. The rule rests on one real data point, not two.
 
 - Ring 2 read clockwise from the anchor gives `[4,3,3,3]` directly, zero free parameters, no reversal needed — matches `bucket_assign(13,4)`'s raw order exactly.
 
@@ -122,7 +146,7 @@ Given the corpus is one artifact per phenomenon, exact-formula claims are mostly
 
 #### GAPS — not derived; fitted, tautological, or underdetermined
 
-- **ROTATE's magnitude (=1) is a tautological readout in both confirmed uses**, not independent confirmation: message headers already have `231,010` at index 1–2 regardless of any rule.
+- **ROTATE's magnitude (=1) is a tautological readout in both confirmed uses**, not independent confirmation: message headers already have `231,010` at index 1–2 regardless of any rule. Across every artifact, its presence or absence tracks one thing — whether the recorded/physical reading order is offset from the generation order — never tiling, seams, or artifact type. It isn't a generative stage anywhere in the corpus, it's a reading-order correction applied before analysis. Worth noting: getting it right on the messages is exactly what exposes the fixed header pair, which is where the 6/5 match above came from — so its role matters more in practice than its non-generative status implies.
 - **Cardinal-alignment formula** ("phase-cycle length divides 4") is underdetermined by sample size — only 4 informative data points, too few to distinguish from cruder rules like "period ≤ 4."
 - **The wrap count (N=26)** has no internal derivation, separate from the now-fully-derivable row-length mechanics around it. The numeric coincidence 26=2×13 is not privileged over chance.
 - **Whether message generation carries state across row-wrap boundaries** is underdetermined by construction for one specific hypothesis (alternation parity, unfalsifiable because N=26 is even) — a broader class of per-row transforms was tested directly and found negative (flat digit1 distribution).
@@ -131,7 +155,6 @@ Given the corpus is one artifact per phenomenon, exact-formula claims are mostly
 - **Whether message generation carries state across row-wrap boundaries** is underdetermined by construction for one specific hypothesis (alternation parity, unfalsifiable because N=26 is even). We observe one small isomorph crossing the wrap boundary.
 - **TERMINATE as a formal pipeline stage.** Hard part: the ring 5 gap's ~1.6× size is a closed physical measurement, and `32 mod 5 = 2` forces *some* cycle-reset to occur (no gap width consistent with the measured size lets "keep tiling KMGIC" predict the correct next symbol). Soft part: that this reset is best modeled as a discrete, named `terminate()` stage with marker semantics — rather than simply "the cycle resets here, by an unspecified mechanism." The ratio measurement supports the former; nothing supports the latter beyond convenience.
 - **TERMINATE's end-vs-start placement.** Physically indistinguishable on a closed loop regardless of how well the gap's existence and size are established.
-
 
 ### OTHER LEADS
 
@@ -143,7 +166,9 @@ I checked several files in case they were hiding something, just for good measur
 
 The eyes do have peculiar properties, pixelwise. Not fully explored.
 
-Other than that, I have not found other hard linked files besides the magick ring and the heart ring in this pass. Worth checking exhaustively.
+I also checked the "misspelled" words scattered across the world (BARRACS, DESER, FRIENDHSIP, and others) against the ring's own compression rule. They follow different rules, truncating from the back rather than protecting both ends, and targeting real digraphs and suffixes rather than arbitrary positions. MAGICK's own CK digraph is never touched by the ring, which is exactly the kind of unit this other mechanism breaks elsewhere. Worth knowing about, not worth treating as more evidence for the ring's own mechanism.
+
+Other than that, I have not found other hard linked files besides the magick ring and the heart/mana ring in this pass. Worth checking exhaustively, since other files do seem related. Might be noise, might be worth including in the analysis.
 
 Bear in mind, you should always analyze these things with original source material. Anything compressed or distorted by web uploads may destroy the original properties. You can decompile the assets very easily. Follow the modding guide.
 
