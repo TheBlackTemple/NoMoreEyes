@@ -49,11 +49,11 @@ A simpler yet similar ring, with a circle divided by a cross, generating four qu
 This is a partial render of the victory room of the game. It holds the "basic win" of the game, among other symbols. It has two, large, detailed hands which are not perfect mirrors of each other. The room itself is also not perfectly mirrored. At the bottom, we see the altar. 
 
 The altar is composed of 4 segments, forming a stack with steps. From the bottom up:
--The lower, widest base stone. Seems to have multiple staircases and markings
--The second, similar to the first, containing steps and markings
--The third seems like a ring of multiple uneven circles. There are 32 marks that seem to taper towards the ends. Half are leaning to the left, half lean to the right. 
--The fourth has a smaller staircase, inscribed with the 18[ɰ]81 in the center of it. 
--A fifth element can be considered. The player is meant to stand right on top of the altar, and sacrifice themselves to finish the game.
+- The lower, widest base stone. Seems to have multiple staircases and markings
+- The second, similar to the first, containing steps and markings
+- The third seems like a ring of multiple uneven circles. There are 32 marks that seem to taper towards the ends. Half are leaning to the left, half lean to the right. 
+- The fourth has a smaller staircase, inscribed with the 18[ɰ]81 in the center of it. 
+- A fifth element can be considered. The player is meant to stand right on top of the altar, and sacrifice themselves to finish the game.
 
 ## ANALYSIS
 
