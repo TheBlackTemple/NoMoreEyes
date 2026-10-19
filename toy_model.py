@@ -155,6 +155,36 @@ def terminate(content, marker="[EOL]", at="end"):
 
 
 # ===========================================================================
+# ANNEX A -- extractTD1 (reference port, generic/unused)
+# ===========================================================================
+
+def extract_td1(l1, l2):
+    """Direct port of td1.js extractTD1(l1, l2). Alternates between two
+    interleaving rules on successive steps: even steps consume 2 items from
+    l1 + 1 from l2 (emitting l1[i1]+l1[i1+1]+l2[i2]); odd steps consume 1
+    from l1 + 2 from l2 (emitting l2[i2+1]+l2[i2]+l1[i1], note the reversed
+    order). Stops as soon as either source runs out for the step it's on.
+    """
+    out = []
+    i1, i2, idx = 0, 0, 0
+    while True:
+        if idx % 2 == 0:
+            if i1 + 1 >= len(l1) or i2 >= len(l2):
+                break
+            out.append(l1[i1] + l1[i1 + 1] + l2[i2])
+            i1 += 2
+            i2 += 1
+        else:
+            if i2 + 1 >= len(l2) or i1 >= len(l1):
+                break
+            out.append(l2[i2 + 1] + l2[i2] + l1[i1])
+            i2 += 2
+            i1 += 1
+        idx += 1
+    return out
+
+
+# ===========================================================================
 # RECIPES -- one per confirmed artifact, each a self-test against real data
 # ===========================================================================
 
